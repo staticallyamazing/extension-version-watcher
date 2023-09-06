@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 use std::collections::HashMap;
+use std::fmt::Debug;
 use std::sync::Arc;
 
 use anyhow::{bail, Context, Result};
@@ -28,11 +29,19 @@ use walkdir::WalkDir;
 
 use crate::{extensions::Extension, PRETTIERRC_PATH};
 
-#[derive(Debug)]
 pub struct Update {
     pub prev_version: String,
     pub cur_version: String,
     pub diff: Option<String>,
+}
+
+impl Debug for Update {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Update")
+            .field("prev_version", &self.prev_version)
+            .field("cur_version", &self.cur_version)
+            .finish()
+    }
 }
 
 #[tracing::instrument(skip(versions), ret, err)]
