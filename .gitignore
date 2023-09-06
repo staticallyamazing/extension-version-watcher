@@ -1,0 +1,9 @@
+crx/*
+diff/*
+
+config.toml
+versions.toml
+
+!.gitkeep
+/target
+Cargo.lock

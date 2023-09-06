@@ -1,0 +1,43 @@
+# config file for extension-version-watcher
+# this file must be named config.toml and must be located in the current working directory when extension-version-watcher is run
+
+# to customize logging, use the RUST_LOG environment variable. it should be a comma separated list of one of:
+# - `foo=trace` (TARGET=LEVEL)
+# - `foo[{bar,baz}]=info` (TARGET[{FIELD,+}]=LEVEL)
+# - `trace` (bare LEVEL)
+# - `foo` (bare TARGET)
+# RUST_LOG defaults to `extension_version_watcher=trace`
+# if you just want less verbose logging, set RUST_LOG to `extension_version_watcher=info`
+
+
+# if you don't want the builtin extensions to be checked, uncomment the following line. defaults to true
+#use_builtin_extensions = false
+
+# if true, diffs will always be generated for all extensions.
+# if false, diffs will never be generated for any extensions.
+# if not specified, diffs will be generated according to extension specific settings.
+# diff generation currently requires prettier (https://prettier.io) to be on PATH
+# if you would like to use a custom prettier config, simply create .prettierrc.json in the current working directory. extension-version-watcher will see this and use it instead of the builtin config.
+#force_generate_diffs = false
+
+# extra extensions to add to the extension list
+# template / format (you can also specify extra extensions as a normal array, but toml doesn't allow inline tables to have newlines so each extension is limited to 1 line):
+#[[extra_extensions]]
+#name = "" # the name of the extension. this should only contain alphanumeric characters, underscores and hyphens. it will be used for directory and file names, as well as keys for versions.toml
+#          # after you set this value, do not change it. it will cause the extension's previously checked version to be reset.
+#display_name = "" # the display name of the extension. this will show up in logs and in the update messages that are sent to discord
+#id = "" # the chrome extension id
+##url = "" # (optional) the chrome extension update URL to use when checking for updates.
+#          # this should resolve to an XML file that has the chrome extension update format.
+#          # if url is not specified, the chrome webstore is searched for an extension with the specified id
+#generate_diff = true # if a diff should be automatically generated. can be overridden by force_generate_diffs
+
+
+# if you comment the following line, update messages will not be sent to discord and you will not need to specify discord.token and discord.channel_ids
+[discord]
+
+# the bot token. must be a string
+#token = ""
+
+# discord channel IDs to send the update messages to. if you want to send update messages to discord, make sure to set this. must be an array of numbers that are >0
+#channel_ids = []
